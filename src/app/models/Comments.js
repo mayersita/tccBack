@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
-const StorySchema = new mongoose.Schema({
-  title: {
+const CommentSchema = new mongoose.Schema({
+  idStory: {
+    type: String,
+    required: true,
+  },
+  idUser: {
     type: String,
     required: true,
   },
@@ -10,9 +14,9 @@ const StorySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  author: {
-    type: String,
-    required: true,
+  votes: {
+    type: Number,
+    default: 0,
   },
   createdAt: {
     type: Date,
@@ -20,6 +24,6 @@ const StorySchema = new mongoose.Schema({
   },
 });
 
-StorySchema.plugin(mongoosePaginate);
+CommentSchema.plugin(mongoosePaginate);
 
-mongoose.model('Story', StorySchema);
+module.exports = mongoose.model('Comments', CommentSchema);
