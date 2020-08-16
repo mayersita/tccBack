@@ -1,11 +1,12 @@
-const mongoose = require('mongoose');
-
 const User = require('../models/User');
 
 class UserController {
   async index(req, res) {
     const { page = 1 } = req.query;
-    const users = await User.paginate({}, { page, limit: 10 });
+    const users = await User.paginate(
+      {},
+      { page, limit: 10, sort: '-createdAt' }
+    );
 
     return res.json(users);
   }

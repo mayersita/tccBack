@@ -17,7 +17,7 @@ class CommentsController {
   }
 
   async store(req, res) {
-    const comment = await Comments.create(req.body);
+    const comment = await Comments.create({ ...req.body, idUser: req.userId });
 
     return res.json(comment);
   }

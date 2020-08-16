@@ -5,7 +5,18 @@ const Story = require('../models/Story');
 class StoryController {
   async index(req, res) {
     const { page = 1 } = req.query;
-    const stories = await Story.paginate({}, { page, limit: 10 });
+    const filters = {};
+
+    if (req.query.title) {
+      filters.title = new RegExp(req.query.title, 'i');
+    }
+
+    const stories = await Story.paginate(filters, {
+      page,
+      limit: 10,
+      sort: '-createdAt',
+      populate: ['author'],
+    });
 
     return res.json(stories);
   }
@@ -17,7 +28,7 @@ class StoryController {
   }
 
   async store(req, res) {
-    const story = await Story.create(req.body);
+    const story = await Story.create({ ...req.body, author: req.userId });
 
     return res.json(story);
   }
