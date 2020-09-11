@@ -28,6 +28,19 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  stories: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Story',
+    },
+  ],
+
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comment',
+    },
+  ],
 });
 
 UserSchema.pre('save', async function (next) {

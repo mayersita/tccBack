@@ -15,6 +15,12 @@ const StorySchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comment',
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
