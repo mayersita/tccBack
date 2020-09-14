@@ -10,24 +10,76 @@ const controllers = require('./app/controllers');
 routes.post('/users', handle(controllers.UserController.store));
 routes.post('/sessions', handle(controllers.SessionController.store));
 
-routes.use(authMiddleware);
-routes.get('/stories', handle(controllers.StoryController.index));
-routes.get('/stories/:id', handle(controllers.StoryController.show));
-routes.post('/stories', handle(controllers.StoryController.store));
-routes.put('/stories/:id', handle(controllers.StoryController.update));
-routes.delete('/stories/:id', handle(controllers.StoryController.destroy));
+// routes.use(authMiddleware);
+routes.get(
+  '/stories',
+  authMiddleware,
+  handle(controllers.StoryController.index)
+);
+routes.get(
+  '/stories/:id',
+  authMiddleware,
+  handle(controllers.StoryController.show)
+);
+routes.post(
+  '/stories',
+  authMiddleware,
+  handle(controllers.StoryController.store)
+);
+routes.put(
+  '/stories/:id',
+  authMiddleware,
+  handle(controllers.StoryController.update)
+);
+routes.delete(
+  '/stories/:id',
+  authMiddleware,
+  handle(controllers.StoryController.destroy)
+);
 
-routes.get('/users', handle(controllers.UserController.index));
-routes.get('/users/:id', handle(controllers.UserController.show));
-routes.post('/users', handle(controllers.UserController.store));
-routes.put('/users/:id', handle(controllers.UserController.update));
-routes.delete('/users/:id', handle(controllers.UserController.destroy));
+routes.get('/users', authMiddleware, handle(controllers.UserController.index));
+routes.get(
+  '/users/:id',
+  authMiddleware,
+  handle(controllers.UserController.show)
+);
+routes.post('/users', authMiddleware, handle(controllers.UserController.store));
+routes.put(
+  '/users/:id',
+  authMiddleware,
+  handle(controllers.UserController.update)
+);
+routes.delete(
+  '/users/:id',
+  authMiddleware,
+  handle(controllers.UserController.destroy)
+);
 
-routes.get('/comments', handle(controllers.CommentsController.index));
-routes.get('/comments/:id', handle(controllers.CommentsController.show));
-routes.post('/comments', handle(controllers.CommentsController.store));
-routes.put('/comments/:id', handle(controllers.CommentsController.update));
-routes.delete('/comments/:id', handle(controllers.CommentsController.destroy));
+routes.get(
+  '/comments',
+  authMiddleware,
+  handle(controllers.CommentsController.index)
+);
+routes.get(
+  '/comments/:id',
+  authMiddleware,
+  handle(controllers.CommentsController.show)
+);
+routes.post(
+  '/comments',
+  authMiddleware,
+  handle(controllers.CommentsController.store)
+);
+routes.put(
+  '/comments/:id',
+  authMiddleware,
+  handle(controllers.CommentsController.update)
+);
+routes.delete(
+  '/comments/:id',
+  authMiddleware,
+  handle(controllers.CommentsController.destroy)
+);
 
 routes.get('/debug-sentry', function mainHandler(req, res) {
   throw new Error('My first Sentry error!');
