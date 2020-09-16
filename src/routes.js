@@ -81,6 +81,22 @@ routes.delete(
   handle(controllers.CommentsController.destroy)
 );
 
+routes.get('/teams', authMiddleware, handle(controllers.TeamController.index));
+
+routes.get(
+  '/teams/:id',
+  authMiddleware,
+  handle(controllers.TeamController.show)
+);
+
+routes.post('/teams', authMiddleware, handle(controllers.TeamController.store));
+
+routes.put(
+  '/teams/:code',
+  authMiddleware,
+  handle(controllers.TeamController.includeUserByCode)
+);
+
 routes.get('/debug-sentry', function mainHandler(req, res) {
   throw new Error('My first Sentry error!');
 });
