@@ -51,6 +51,14 @@ class TeamController {
     return res.json(updateTeam);
   }
 
+  async findTeamByUser(req, res) {
+    const team = await Team.find({
+      users: { $in: [req.body.id] },
+    });
+
+    return res.json(team);
+  }
+
   async update(req, res) {
     const team = await Team.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
