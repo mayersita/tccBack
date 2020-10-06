@@ -34,8 +34,31 @@ class StoryController {
   }
 
   async listStoriesByTeam(req, res) {
-    const stories = await Story.find({ team: req.params.team });
+    const { page = 1 } = req.query;
+    const stories = await Story.paginate(
+      { team: req.params.team },
+      {
+        page,
+        limit: 10,
+        sort: '-createdAt',
+        populate: ['comments'],
+      }
+    );
 
+    return res.json(stories);
+  }
+
+  async listStoriesByUser(req, res) {
+    const { page = 1 } = req.query;
+    const stories = await Story.paginate(
+      { author: req.body.user },
+      {
+        page,
+        limit: 10,
+        sort: '-createdAt',
+        populate: ['comments'],
+      }
+    );
     return res.json(stories);
   }
 

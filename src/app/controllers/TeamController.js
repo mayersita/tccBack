@@ -28,6 +28,14 @@ class TeamController {
   }
 
   async store(req, res) {
+    const { code, name } = req.body;
+    if (await Team.findOne({ code })) {
+      return res.status(400).json({ error: 'This Code already exists' });
+    }
+
+    if (await Team.findOne({ name })) {
+      return res.status(400).json({ error: 'This name already exists' });
+    }
     const team = await Team.create({
       ...req.body,
       leader: req.userId,
@@ -42,13 +50,19 @@ class TeamController {
     if (!team) {
       return res.status(400).json({ error: 'Team not found' });
     }
-    const updateTeam = await Team.findByIdAndUpdate(team._id, {
-      $push: {
-        users: req.userId,
-      },
+    const userinTeam = await Team.find({
+      users: { $in: [req.userId] },
     });
+    if (userinTeam.length == 0) {
+      const updateTeam = await Team.findByIdAndUpdate(team._id, {
+        $push: {
+          users: req.userId,
+        },
+      });
 
-    return res.json(updateTeam);
+      return res.json(updateTeam);
+    }
+    return res.status(400).json({ error: 'User is already in a team' });
   }
 
   async findTeamByUser(req, res) {

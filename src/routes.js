@@ -23,6 +23,12 @@ routes.get(
 );
 
 routes.post(
+  '/stories/user',
+  authMiddleware,
+  handle(controllers.StoryController.listStoriesByUser)
+);
+
+routes.get(
   '/stories/team/:team',
   authMiddleware,
   handle(controllers.StoryController.listStoriesByTeam)
