@@ -15,6 +15,10 @@ const StorySchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  team: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Team',
+  },
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,

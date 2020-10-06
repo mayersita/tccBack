@@ -33,6 +33,12 @@ class StoryController {
     return res.json(story);
   }
 
+  async listStoriesByTeam(req, res) {
+    const stories = await Story.find({ team: req.params.team });
+
+    return res.json(stories);
+  }
+
   async update(req, res) {
     const story = await Story.findByIdAndUpdate(req.params.id, req.body, {
       new: true,

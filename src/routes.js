@@ -21,11 +21,19 @@ routes.get(
   authMiddleware,
   handle(controllers.StoryController.show)
 );
+
+routes.post(
+  '/stories/team/:team',
+  authMiddleware,
+  handle(controllers.StoryController.listStoriesByTeam)
+);
+
 routes.post(
   '/stories',
   authMiddleware,
   handle(controllers.StoryController.store)
 );
+
 routes.put(
   '/stories/:id',
   authMiddleware,
@@ -55,8 +63,8 @@ routes.delete(
   handle(controllers.UserController.destroy)
 );
 
-routes.get(
-  '/comments',
+routes.post(
+  '/comments/story/:story',
   authMiddleware,
   handle(controllers.CommentsController.index)
 );
