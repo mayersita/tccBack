@@ -56,7 +56,7 @@ class StoryController {
         page,
         limit: 10,
         sort: '-createdAt',
-        populate: ['comments'],
+        populate: ['comments', 'author'],
       }
     );
     return res.json(stories);
