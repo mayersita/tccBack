@@ -20,16 +20,16 @@ class UserController {
   async store(req, res) {
     const { email, password } = req.body;
     if (await User.findOne({ email })) {
-      return res.status(400).json({ error: 'User already exists' });
+      return res.status(400).json({ error: 'Usuário já existe!' });
     }
     const user = await User.create(req.body);
 
     const userWithToken = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ error: 'User not found' });
+      return res.status(400).json({ error: 'Usuário não encontrado' });
     }
     if (!(await userWithToken.compareHash(password))) {
-      return res.status(400).json({ error: 'Invalid password' });
+      return res.status(400).json({ error: 'Senha inválida' });
     }
 
     return res.json({

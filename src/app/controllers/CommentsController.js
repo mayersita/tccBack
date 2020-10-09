@@ -7,7 +7,7 @@ class CommentsController {
   async index(req, res) {
     const { page = 1 } = req.query;
     const comments = await Comments.paginate(
-      { team: req.params.team },
+      { story: req.params.story },
       { page, limit: 10, populate: ['user'] }
     );
 

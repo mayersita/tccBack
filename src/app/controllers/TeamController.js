@@ -30,11 +30,13 @@ class TeamController {
   async store(req, res) {
     const { code, name } = req.body;
     if (await Team.findOne({ code })) {
-      return res.status(400).json({ error: 'This Code already exists' });
+      return res.status(400).json({
+        error: 'Esse código já existe! Por favor insira outro código.',
+      });
     }
 
     if (await Team.findOne({ name })) {
-      return res.status(400).json({ error: 'This name already exists' });
+      return res.status(400).json({ error: 'Esse nome já foi utilizado!' });
     }
     const team = await Team.create({
       ...req.body,
