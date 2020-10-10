@@ -33,7 +33,7 @@ class UserController {
     }
 
     return res.json({
-      userWithToken,
+      user: userWithToken,
       token: User.generateToken(userWithToken),
     });
   }
