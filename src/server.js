@@ -1,13 +1,12 @@
-import express from 'express';
-import cors from 'cors';
-import mongoose from 'mongoose';
-import * as Sentry from '@sentry/node';
-import routes from './routes';
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const Sentry = require('@sentry/node');
+const Youch = require('youch');
+const { ValidationError } = require('express-validation');
+const routes = require('./routes');
 
 require('dotenv').config();
-const { ValidationError } = require('express-validation');
-
-const Youch = require('youch');
 
 const databaseConfig = require('./config/database');
 const sentryConfig = require('./config/sentry');
@@ -66,4 +65,4 @@ class App {
   }
 }
 
-export default new App().express;
+module.exports = new App().express;
