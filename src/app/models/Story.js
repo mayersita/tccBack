@@ -11,9 +11,20 @@ const StorySchema = new mongoose.Schema({
     required: true,
   },
   author: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
+  team: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Team',
+  },
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comments',
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
@@ -22,4 +33,4 @@ const StorySchema = new mongoose.Schema({
 
 StorySchema.plugin(mongoosePaginate);
 
-mongoose.model('Story', StorySchema);
+module.exports = mongoose.model('Story', StorySchema);
