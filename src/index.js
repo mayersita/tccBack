@@ -1,7 +1,4 @@
-import requireDir from 'require-dir';
-import mongoose from 'mongoose';
-import app from './server';
-
+const app = require('./server');
 // // primeira rota
 app.use('/api', require('./routes'));
 
