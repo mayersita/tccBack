@@ -16,9 +16,9 @@ const CommentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  votes: {
-    type: Number,
-    default: 0,
+  investCriteria: {
+    type: String,
+    required: true,
   },
   createdAt: {
     type: Date,
